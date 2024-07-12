@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { userSignIn } from "../services/api/user";
 import { useHeader } from "./useHeader";
-
+import { useRouter } from 'next/navigation'
 // interface UserData {
 //   email: string;
 //   password: string;
@@ -10,7 +10,8 @@ export function useSignin () {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { setUserFirstName } = useHeader();
+  const { setUserFirstName, setIsUserLoggedIn } = useHeader();
+  const router = useRouter()
   
   const handleEmailInput = (e: any) => {
     setEmail(e);
@@ -27,10 +28,15 @@ export function useSignin () {
     console.log(userData.data)
     if(userData.data.token.length > 0){
       setUserFirstName(userData.data.firstName)
+      setIsUserLoggedIn(true)
       localStorage.setItem("token", userData.data.token);
       localStorage.setItem("email", userData.data.email);
       localStorage.setItem("firstName", userData.data.firstName);
       localStorage.setItem("lastName", userData.data.lastName);
+      router.push('/')
+    } else {
+      console.log('error')
+      // openNotificationWithIcon('error', 'Error', "Invalid username/password");
     }
     // const data = await getAuthToken(email, password);
     // //@ts-ignore
