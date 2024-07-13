@@ -1,5 +1,6 @@
-import { Button, Input, Popconfirm, Space, Upload } from "antd";
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
+"use client"
+import { Button, Card, DatePicker, DatePickerProps, Input, Popconfirm, Space, Upload } from "antd";
+import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 
 export default function Book() {
   const trips = [
@@ -16,57 +17,39 @@ export default function Book() {
   
   console.log(datePHT.toISOString()); // This will show the date in ISO format with the correct time
   
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
     <div>   
-      {today} <br />
-      {datePHT.toString()}
-      <Space>
+      {/* {today} <br /> */}
+      {/* {datePHT.toString()} */}
+      <Card style={{ width: 820, margin: '100px auto'}}>
         {/* <Form.Item label="Field A">
           <Input placeholder="input placeholder" />
         </Form.Item> */}
-        <Space className="flex flex-col items-start p-3">
-          <label>From</label>
-          <Input size="large" placeholder="Origin"/>
-        </Space>
-        <Space>
-          {/* <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Search to Select"
-            optionFilterProp="label"
-            filterSort={(optionA, optionB) =>
-              (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-            }
-            options={[
-              {
-                value: '1',
-                label: 'Not Identified',
-              },
-              {
-                value: '2',
-                label: 'Closed',
-              },
-              {
-                value: '3',
-                label: 'Communicated',
-              },
-              {
-                value: '4',
-                label: 'Identified',
-              },
-              {
-                value: '5',
-                label: 'Resolved',
-              },
-              {
-                value: '6',
-                label: 'Cancelled',
-              },
-            ]}
-          /> */}
-        </Space>
-      </Space>
+        <span className="flex flex-row w-full max-w-[1200px]">
+          
+          <Space className="flex flex-col items-start p-3">
+            <label className="ms-2">From</label>
+            <Input size="large" placeholder="Origin"/>
+          </Space>
+          <Space className="flex flex-col items-start p-3">
+            <label className="ms-2">To</label>
+            <Input size="large" placeholder="Destination"/>
+          </Space>
+          <Space className="flex flex-col items-start p-3">
+            <label className="ms-2">Departure</label>
+            <DatePicker size="large" onChange={onChange} />
+          </Space>
+          <Space className="flex flex-col justify-end pb-3">
+            <Button size="large" type="primary" icon={<SearchOutlined />} iconPosition="end">
+              Search
+            </Button>
+          </Space>
+        </span>
+      </Card>
     </div>
   )
 }

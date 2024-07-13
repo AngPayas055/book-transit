@@ -1,8 +1,8 @@
 "use client"
-import { Button, Layout, Menu, Space, Typography } from "antd";
+import { Button, Layout, Menu, Popover, Space, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { usePathname } from 'next/navigation'
-import { UserSwitchOutlined } from '@ant-design/icons';
+import { UserSwitchOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useHeader } from "@/app/hooks/useHeader";
 
 const { Header } = Layout;
@@ -11,7 +11,12 @@ export default function LayoutHeader() {
   const router = useRouter();
   const pathname = usePathname()
   const { Title } = Typography;
-  const { firstName, isUserLoggedIn } = useHeader()
+  const { firstName, isUserLoggedIn, logout } = useHeader()
+  const userContent = (
+    <div>
+      <Button onClick={logout} icon={<LogoutOutlined />}>Signout</Button>
+    </div>
+  );
 
   return (
     <Header style={{ display: 'flex', alignItems: 'center', padding: '0'}}>
@@ -20,7 +25,9 @@ export default function LayoutHeader() {
         <Space>          
           {!isUserLoggedIn && pathname !== "/signup" && <Button type="primary" onClick={(e: any) => router.push("/signup")}>Register</Button>}    
           {!isUserLoggedIn && pathname !== "/signin" && <Button type="primary" onClick={(e: any) => router.push("/signin")} ghost>Sign in</Button>}
-          {isUserLoggedIn && <Button type="primary" icon={<UserSwitchOutlined />}>Hi, {firstName}</Button>}
+          <Popover content={userContent} placement="bottomRight">
+            {isUserLoggedIn && <Button type="primary" icon={<UserSwitchOutlined />}>Hi, {firstName}</Button>}
+          </Popover>
         </Space>
       </span>
     </Header>
