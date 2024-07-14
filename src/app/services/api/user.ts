@@ -68,5 +68,27 @@ export const getResetLink = async (userEmail: string) => {
     captureException(error);
     throw new Error("Unable to send reset link");
   }
+}
+
+export const resetNewPassword = async (pass: string, confirmPass: string, token: string) => {
+  try {
+    const data = { 
+      password: pass, 
+      confirmPassword: confirmPass, 
+      resetToken: token };
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data,
+    };
+    const resp = await axios(`${server}/users/resetPassword`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
 
 }
