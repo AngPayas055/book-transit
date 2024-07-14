@@ -33,7 +33,7 @@ export function useSignin () {
         localStorage.setItem("email", userData.data.email);
         localStorage.setItem("firstName", userData.data.firstName);
         localStorage.setItem("lastName", userData.data.lastName);
-        openNotificationWithIcon('success', 'Success', 'Successfully signed in.');
+        openNotificationWithIcon('success', 'Success', "You've logged in, " + userData.data.firstName);
         router.push('/');
       } else {
         openNotificationWithIcon('error', 'Error', userData.message || 'Invalid username/password');

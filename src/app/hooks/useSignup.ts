@@ -40,7 +40,7 @@ export function useSignup () {
       }
       const userData = await userSignUp(userObj)
       if(userData.data){
-        openNotificationWithIcon('success', 'Success', userData.message || 'Invalid username/password');
+        openNotificationWithIcon('success', 'Success', "Signup successful! Welcome aboard, " + firstName);
         router.push('/signin');
       }else{        
         console.log(userData.message)
