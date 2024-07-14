@@ -1,4 +1,5 @@
 import { useState, useContext, createContext, ReactNode, useEffect } from "react";
+import { useNotification } from "../context/notificationContext";
 
 interface HeaderContextProps {
   firstName: string;
@@ -25,6 +26,7 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setUser()
   },[] )
+  const { openNotificationWithIcon } = useNotification();
   const setUserFirstName = (name: string) => {
     setFirstName(name);
   };
@@ -42,6 +44,7 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("email");
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
+    openNotificationWithIcon('info', 'Info', 'You are now logged out. Have a great day!');
     setUser()
   }
 

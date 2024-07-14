@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppLayout>
-          <NotificationProvider>
+          {/* <NotificationProvider> */}
             {children}
-          </NotificationProvider>
+          {/* </NotificationProvider> */}
         </AppLayout>
       </body>
     </html>
