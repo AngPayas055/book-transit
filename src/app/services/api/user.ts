@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import { server } from "@/app/utils/constants";
 import { captureException } from "@/app/utils/logger";
 import { UserData, registerInterface } from "@/app/interface/user";
@@ -16,7 +16,12 @@ export const userSignIn = async (email: string, password: string) => {
       message: resp.data.message,
       data: resp.data.data
     };
-  } catch (error) {
+  } catch (error:any) {
+    if(error.response.data.message){
+      return {
+        message: error.response.data.message,
+      }
+    }
     captureException(error);
     throw new Error("Unable to login");
   }
@@ -35,7 +40,12 @@ export const userSignUp = async (signupObj:registerInterface) => {
       message: resp.data.message,
       data: resp.data.data
     };
-  } catch (error) {
+  } catch (error:any) {
+    if(error.response.data.message){
+      return {
+        message: error.response.data.message,
+      }
+    }
     captureException(error);
     throw new Error("Unable to login");
   }

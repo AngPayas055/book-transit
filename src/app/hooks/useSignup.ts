@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { userSignUp } from "../services/api/user";
+import { useNotification } from "../context/notificationContext";
+import { useRouter } from 'next/navigation'
 
 export function useSignup () {
   const [email, setEmail] = useState<string>("");
@@ -8,6 +10,8 @@ export function useSignup () {
   const [lastName, setlastName] = useState<string>("");
   const [phone, setphone] = useState<string>("");
 
+  const { openNotificationWithIcon } = useNotification();
+  const router = useRouter()
   const handleEmailInput = (e: any) => {
     setEmail(e);
   };
@@ -35,23 +39,13 @@ export function useSignup () {
         phone: phone
       }
       const userData = await userSignUp(userObj)
-      if(userData.data.error){
-        console.log(userData.data.error)
+      if(userData.data){
+        openNotificationWithIcon('success', 'Success', userData.message || 'Invalid username/password');
+        router.push('/signin');
       }else{        
-        console.log(userData.data.message)
+        console.log(userData.message)
+        openNotificationWithIcon('error', 'Error', userData.message || 'Invalid username/password');
       }
-      // if(userData.data.token.length > 0){
-      //   setUserFirstName(userData.data.firstName)
-      //   setIsUserLoggedIn(true)
-      //   localStorage.setItem("token", userData.data.token);
-      //   localStorage.setItem("email", userData.data.email);
-      //   localStorage.setItem("firstName", userData.data.firstName);
-      //   localStorage.setItem("lastName", userData.data.lastName);
-      //   router.push('/')
-      // } else {
-      //   console.log('error')
-      //   // openNotificationWithIcon('error', 'Error', "Invalid username/password");
-      // }
 
     }catch (error) {
       console.error("error", error);
