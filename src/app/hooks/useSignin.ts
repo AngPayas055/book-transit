@@ -24,19 +24,24 @@ export function useSignin () {
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     console.log(email,password)
-    const userData = await userSignIn(email, password)
-    console.log(userData.data)
-    if(userData.data.token.length > 0){
-      setUserFirstName(userData.data.firstName)
-      setIsUserLoggedIn(true)
-      localStorage.setItem("token", userData.data.token);
-      localStorage.setItem("email", userData.data.email);
-      localStorage.setItem("firstName", userData.data.firstName);
-      localStorage.setItem("lastName", userData.data.lastName);
-      router.push('/')
-    } else {
-      console.log('error')
-      // openNotificationWithIcon('error', 'Error', "Invalid username/password");
+    try{
+      const userData = await userSignIn(email, password)
+      console.log(userData.data)
+      if(userData.data.token.length > 0){
+        setUserFirstName(userData.data.firstName)
+        setIsUserLoggedIn(true)
+        localStorage.setItem("token", userData.data.token);
+        localStorage.setItem("email", userData.data.email);
+        localStorage.setItem("firstName", userData.data.firstName);
+        localStorage.setItem("lastName", userData.data.lastName);
+        router.push('/')
+      } else {
+        console.log('error')
+        // openNotificationWithIcon('error', 'Error', "Invalid username/password");
+      }
+
+    }catch (error) {
+      console.error("error", error);
     }
     // const data = await getAuthToken(email, password);
     // //@ts-ignore
