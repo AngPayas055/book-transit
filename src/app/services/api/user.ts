@@ -50,3 +50,23 @@ export const userSignUp = async (signupObj:registerInterface) => {
     throw new Error("Unable to login");
   }
 }
+
+export const getResetLink = async (userEmail: string) => {
+  try {
+    const data = { email: userEmail };
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data,
+    };
+    const resp = await axios(`${server}/users/forgotpassword`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
+
+}

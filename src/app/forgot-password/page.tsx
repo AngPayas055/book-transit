@@ -1,19 +1,16 @@
 "use client"
-import { Button, Input, Space, Typography  } from "antd";
-import { useRouter } from "next/navigation";
-import styles from './signin.module.css'
-import { useSignin } from '../hooks/useSignin'
+import { Button, Input, Typography } from 'antd';
+import styles from './forgot-password.module.css'
+import { useForgotPassword } from '../hooks/useForgotPassword';
+import { useRouter } from 'next/navigation'
 
-export default function signin() {
-
+export default function ForgotPassword() {
+  const { Title } = Typography;
+  const router = useRouter()
   const {
     handleEmailInput,
-    handlePasswordInput,
-    handleSignIn
-  } = useSignin();
-
-  const { Title } = Typography;
-  const router = useRouter();
+    handleSendResetLink
+  } = useForgotPassword()
 
   return (
     <div className={styles.signinCont}>
@@ -29,19 +26,12 @@ export default function signin() {
       </div>
       <div className={styles.signinRight}>  
         <div className="p-3">              
-          <Title level={2}>Sign in</Title>
+          <Title level={2}>Reset Password</Title>
           <div className="flex flex-col items-start mb-3">
             <label>Email</label>
             <Input onChange={(e) => handleEmailInput(e.target.value)} className="mt-2" size="large" placeholder="Enter Email Address"/>
           </div>
-          <div className="flex flex-col items-start mb-3">
-            <label>Password</label>
-            <Input onChange={(e) => handlePasswordInput(e.target.value)} className="mt-2" type="password" size="large" placeholder="Password"/>
-          </div>
-          <div className="flex justify-end pb-2">
-            <a onClick={(e: any) => router.push("/forgot-password")} className="underline mb-2 text-right">Forgot Password</a>
-          </div>
-          <Button onClick={(e) => handleSignIn(e)} type="primary" block>Sign in</Button>
+          <Button onClick={(e) => handleSendResetLink(e)} type="primary" block>Send Reset Link</Button>
           <Button onClick={(e: any) => router.push("/signup")} className="mt-3" block>Don't have an account? <span className="text-red-500">Register Now</span></Button>
         </div>  
       </div>
