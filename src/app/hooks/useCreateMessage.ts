@@ -39,12 +39,13 @@ export function useCreateMessage () {
 
         setMessages([...messages, newMessage, botMessage]);
         console.log(messages)
+        setUserInput("");
       }
     } catch (err) {
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);
-      setUserInput(""); // Clear the input after generating the message
+      setUserInput("");
     }
   };
   

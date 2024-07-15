@@ -17,12 +17,12 @@ export default function AppLayout({
           <NotificationProvider>
       <HeaderProvider>
         <LayoutHeader/>
-        <Content className='w-full max-w-[1200px] mx-auto p-3 min-h-[calc(100vh-135px)]'>
-            {children}
+        <Content className='w-full max-w-[1200px] mx-auto p-3 min-h-[calc(100vh-80px)]'>
+          {children}
         </Content>
       </HeaderProvider>
       </NotificationProvider>
-      <FooterLayout/>
+      {/* <FooterLayout/> */}
     </Layout>
   )
 }
