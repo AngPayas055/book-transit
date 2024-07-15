@@ -1,0 +1,25 @@
+.messageContainer{
+  /* border: 1px solid black; */
+  min-height: calc(100vh - 200px);
+}
+.userMessageCont{
+  display: flex;
+  justify-content: flex-end;
+}
+.userMessageContent{
+  padding: 10px 10px 10px 15px;
+  background-color: #fff;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  max-width: 75%;
+}
+.assistantMessageCont{
+  display: flex;
+}
+.assistantMessageContent{
+  padding: 10px 10px 10px 15px;
+  /* background-color: #fff; */
+  border-radius: 15px;
+  margin-bottom: 15px;
+  /* max-width: 75%; */
+}
