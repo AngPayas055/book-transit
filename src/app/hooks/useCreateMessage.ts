@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { Message } from "../interface/chat";
 import { generateMessageService } from "../services/api/ai";
+import { funnyLoadingPhrases } from "../utils/constants";
+import { useNotification } from "../context/notificationContext";
 
 export function useCreateMessage () {
   const [userInput, setUserInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  
+  const { openNotificationWithIcon } = useNotification();
 
   const handleSetUserInput = (e: any) => {
     setUserInput(e);
   };
   const handleGenerateMessage = async () => {
+    const randomIndex = Math.floor(Math.random() * funnyLoadingPhrases.length);
+    const funnyPhrase = funnyLoadingPhrases[randomIndex];
+    openNotificationWithIcon('info', 'Info', funnyPhrase );
     if (!userInput.trim()) return;
 
     setLoading(true);
