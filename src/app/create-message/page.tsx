@@ -16,8 +16,8 @@ export default function CreateMessage () {
   const { Search } = Input;
   return (
     <div className={styles.messagePageCont}> 
-      {error && <Alert message={error} type="error" showIcon />}
       <div className={styles.messageContainer}>
+      {error && <Alert message={error} type="error" showIcon className='mt-3 mb-3'/>}
         {messages.length == 0 && 
           <span className='flex flex-wrap gap-3 pt-5 max-w-[700px] mx-auto'>
             <Card className='cursor-pointer' onClick={(e) => handleSetUserInput('Fun fact about Roman Empire')} style={{ minHeight: '120px', maxWidth: '33%' }} bordered={false}>
@@ -49,7 +49,7 @@ export default function CreateMessage () {
                 </span>
                 <span className={styles.assistantMessageContent}>
                   {message.content.split('\n').map((line, index) => (
-                    <div key={index}>{line}</div>
+                    <div key={index}>{line}<br /></div>
                   ))}
                 </span>
               </div>
