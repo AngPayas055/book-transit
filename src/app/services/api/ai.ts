@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { server } from "@/app/utils/constants";
 import { ErrorResponse, messagePayload, MessageResponse } from "@/app/interface/chat";
-const token = localStorage.getItem("token") || '';
 const getToken = () => {
   return localStorage.getItem("token") || ''
 }
