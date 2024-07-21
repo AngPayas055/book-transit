@@ -14,10 +14,10 @@ export default function AppLayout({
 
   return (
     <Layout>
-          <NotificationProvider>
+      <NotificationProvider>
       <HeaderProvider>
         <LayoutHeader/>
-        <Content className='w-full max-w-[1440px] mx-auto p-3 min-h-[calc(100vh-80px)]'>
+        <Content className='w-full max-w-[1440px] mx-auto  min-h-[calc(100vh-80px)]'>
           {children}
         </Content>
       </HeaderProvider>
