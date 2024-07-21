@@ -20,7 +20,7 @@ export default function LayoutHeader() {
 
   return (
     <Header style={{ display: 'flex', alignItems: 'center', padding: '0'}}>
-      <span className="w-full max-w-[1200px] flex justify-between mx-auto items-center p-3">    
+      <span className="w-full max-w-[1440px] flex justify-between mx-auto items-center p-3">    
         <a onClick={(e: any) => router.push("/")} className="text-3xl font-bold text-sky-400">SmartCompose</a>
         <Space>          
           {!isUserLoggedIn && pathname !== "/signup" && <Button type="primary" onClick={(e: any) => router.push("/signup")}>Register</Button>}    
