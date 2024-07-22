@@ -17,3 +17,12 @@ export interface MessageResponse {
 export interface ErrorResponse {
   error: string;
 }
+
+export interface WriteMessage {
+  language: string;
+  textFormat: string;
+  textSize: string;
+  userMessage: string;
+  withEmoji: boolean;
+  writingStyle: string;
+}

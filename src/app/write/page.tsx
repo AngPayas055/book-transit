@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { SnippetsOutlined, FormOutlined } from '@ant-design/icons';
-import { Button, Card, Input, Layout, Menu, Radio, Select, Space, theme, Typography } from 'antd';
+import { Button, Card, Input, Layout, Radio, Select, Space, Typography } from 'antd';
 import { useWrite } from '../hooks/useWrite';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -30,8 +30,8 @@ const sizeOptions = [
   { label: 'Long', value: 'Long' }
 ];
 const emojiOptions = [
-  { label: 'With emoji', value: 'With emoji' },
-  { label: 'No emoji', value: 'No emoji' }
+  { label: 'With emoji', value: true },
+  { label: 'No emoji', value: false }
 ];
 const styleOptions = [
   { label: 'Formal', value: 'Formal' },
@@ -51,11 +51,19 @@ const styleOptions = [
 ];
 export default function Write () {
   const {
-    handleMenuClick,selectedKey
+    selectedLanguage,
+    handleLanguageChange,
+    handletextFormatChange,
+    handletextSizeChange,
+    selectedTextFormat,
+    selectedTextSize,
+    handleWritingStyleChange,
+    selectedWritingStyle,
+    handleIfEmojiChange,
+    selectedIfEmoji,
+    handleSubmit,
+    setValue
   } = useWrite()
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   return (
     <div className='mt-5 flex max-w-[1000px] mx-auto justify-between flex-col lg:flex-row'>
@@ -66,23 +74,27 @@ export default function Write () {
           autoSize={{ minRows: 5}} 
           showCount
           maxLength={3000}
+          onChange={(e) => setValue(e.target.value)}
           />  
-        <Button type="primary" block className='mt-7'>
+        <Button onClick={handleSubmit} type="primary" block className='mt-7'>
           Submit
         </Button>
       </div>
       <div className='p-2 w-full lg:max-w-80 border'>          
-        <Card title="Social Profile" bordered={false} style={{ width: 300 }}>
-          <Button ghost type="primary" block>
-            Create
-          </Button>
+        <Card bordered={false} style={{ width: '100%' }}> 
+          <Space direction="vertical" className='w-full'>
+            <Text type="secondary" className='ms-1'>Social Profile</Text>
+            <Button ghost type="primary" block>
+              Create
+            </Button>
+          </Space>  
         </Card>
         <Space direction="vertical" className='mt-3 w-full'>            
           <Text type="secondary" className='ms-1'>Language...</Text>
           <Select
-            defaultValue="english-us"
+            defaultValue={selectedLanguage}
             style={{ width: '100%' }}
-            // onChange={handleChange}
+            onChange={handleLanguageChange}
             options={[
               { value: 'english-us', label: 'English(U.S.)' },
               { value: 'english-uk', label: 'English(U.K.)' },
@@ -93,24 +105,39 @@ export default function Write () {
         </Space>
         <Space direction="vertical" className='mt-3 w-full'>            
           <Text type="secondary" className='ms-1'>Text Format</Text>
-          <Radio.Group options={options} optionType="button" />
+          <Radio.Group 
+            onChange={handletextFormatChange} 
+            options={options} 
+            optionType="button" 
+            defaultValue={selectedTextFormat}
+            />
         </Space>
         <Space direction="vertical" className='mt-3 w-full'>            
           <Text type="secondary" className='ms-1'>Text Size</Text>
-          <Radio.Group options={sizeOptions} optionType="button" />
+          <Radio.Group 
+            onChange={handletextSizeChange} 
+            options={sizeOptions} 
+            optionType="button" 
+            defaultValue={selectedTextSize}
+            />
         </Space>
         <Space direction="vertical" className='mt-3 w-full'>            
           <Text type="secondary" className='ms-1'>Writing Style</Text>
           <Select
-            defaultValue="Friendly"
+            onChange={handleWritingStyleChange}
+            defaultValue={selectedWritingStyle}
             style={{ width: '100%' }}
-            // onChange={handleChange}
             options={styleOptions}
           />
         </Space>
         <Space direction="vertical" className='mt-3 w-full'>            
           <Text type="secondary" className='ms-1'>Include Emoji</Text>
-          <Radio.Group options={options} optionType="button" />
+          <Radio.Group 
+            onChange={handleIfEmojiChange}
+            options={emojiOptions} 
+            defaultValue={selectedIfEmoji}
+            optionType="button" 
+            />
         </Space>
       </div>
     </div>
