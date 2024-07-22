@@ -2,7 +2,7 @@
 import { Button, Layout, Menu, Popover, Space, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { usePathname } from 'next/navigation'
-import { UserSwitchOutlined, LogoutOutlined, ClusterOutlined, SolutionOutlined, SnippetsOutlined, FormOutlined  } from '@ant-design/icons';
+import { UserSwitchOutlined, LogoutOutlined, MailOutlined, SnippetsOutlined, FormOutlined  } from '@ant-design/icons';
 import { useHeader } from "@/app/hooks/useHeader";
 import type { MenuProps } from 'antd';
 import Link from 'next/link';
@@ -30,6 +30,11 @@ export default function LayoutHeader() {
       key: 'create-message', 
       icon: <SnippetsOutlined />, 
       label: (<Link href="/create-message">Create Message</Link>),
+    },
+    { 
+      key: 'emails', 
+      icon: <MailOutlined />, 
+      label: (<Link href="/emails">Emails</Link>),
     },
   ];
 

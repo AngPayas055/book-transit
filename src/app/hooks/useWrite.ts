@@ -13,7 +13,9 @@ export function useWrite () {
   const [selectedTextSize, setSelectedTextSize] = useState<string>('Short');
   const [selectedWritingStyle, setSelectedWritingStyle] = useState<string>('Friendly');
   const [selectedIfEmoji, setselectedIfEmoji] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
+  const [generatedMEssage, setGeneratedMEssage] = useState<string>('');
   const { openNotificationWithIcon } = useNotification();
   const router = useRouter()
 
@@ -21,6 +23,15 @@ export function useWrite () {
     console.log('selectedTextSize', selectedTextSize);
   },[selectedTextSize])
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const handleLanguageChange = (value: string) => {
     setSelectedLanguage(value)
   };
@@ -65,6 +76,8 @@ export function useWrite () {
         }
       } else {
         console.log('jres',response)
+        setGeneratedMEssage(response.data)
+        showModal()
       }
     } catch (err) {
       console.log('jres',err)
@@ -72,6 +85,24 @@ export function useWrite () {
       // setLoading(false);
       // setUserInput("");
     }
+  }  
+  const handleCopyGeneratedMessage = async () => {
+    const textarea = document.createElement('textarea');
+    textarea.value = generatedMEssage;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
+  const handleRequestMessage = async () => {
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
   }
   return {
     selectedLanguage,
@@ -85,6 +116,13 @@ export function useWrite () {
     handleIfEmojiChange,
     selectedIfEmoji,
     handleSubmit,
-    setValue
+    setValue,
+    showModal,
+    isModalOpen,
+    handleCancel,
+    handleOk,
+    generatedMEssage,
+    handleCopyGeneratedMessage,
+    handleRequestMessage
   }
 }

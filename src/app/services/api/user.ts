@@ -3,6 +3,10 @@ import { server } from "@/app/utils/constants";
 import { captureException } from "@/app/utils/logger";
 import { UserData, registerInterface } from "@/app/interface/user";
 
+const getToken = () => {
+  return localStorage.getItem("token") || ''
+}
+
 export const userSignIn = async (email: string, password: string) => {
   try {
     const data: UserData = { email, password };
@@ -91,4 +95,24 @@ export const resetNewPassword = async (pass: string, confirmPass: string, token:
     throw new Error("Unable to send reset link");
   }
 
+}
+
+export const getPrompts = async () => {
+  try {
+    const options: AxiosRequestConfig = {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+       }
+    };
+    const resp = await axios(`${server}/users/messages`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
 }

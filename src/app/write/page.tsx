@@ -3,6 +3,7 @@ import React from 'react';
 import { SnippetsOutlined, FormOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Layout, Radio, Select, Space, Typography } from 'antd';
 import { useWrite } from '../hooks/useWrite';
+import ReusableModal from '../components/reusable-components/modal';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { TextArea } = Input;
@@ -69,7 +70,14 @@ export default function Write () {
     handleIfEmojiChange,
     selectedIfEmoji,
     handleSubmit,
-    setValue
+    setValue,
+    showModal,
+    isModalOpen,
+    handleCancel,
+    handleOk,
+    generatedMEssage,
+    handleCopyGeneratedMessage,
+    handleRequestMessage
   } = useWrite()
 
   return (
@@ -142,6 +150,27 @@ export default function Write () {
             />
         </Space>
       </div>
+      <ReusableModal
+        isOpen={isModalOpen}
+        onClose={handleCancel}
+        title="Email / Message"
+        width={1200}
+      >
+        {generatedMEssage.split('\n').map((line, index) => (
+          <div key={index}>{line}<br /></div>
+        ))}
+        <div className='flex justify-end w-full gap-3'>        
+          <Button onClick={handleRequestMessage} className='mt-7'>
+            Copy Request
+          </Button>         
+          <Button onClick={handleCopyGeneratedMessage} type="primary" className='mt-7'>
+            Copy
+          </Button>
+        </div>
+      </ReusableModal>
+      {/* <Button type="primary" onClick={showModal}>
+        Open Modal
+      </Button> */}
     </div>
   )
 }
