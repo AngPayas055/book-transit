@@ -24,6 +24,12 @@ const options = [
   { label: 'Email', value: 'Email' },
   { label: 'Message', value: 'Message' }
 ];
+const languageOptions = [
+  { value: 'english-us', label: 'English(U.S.)' },
+  { value: 'english-uk', label: 'English(U.K.)' },
+  { value: 'filipino', label: 'Filipino' },
+  { value: 'disabled', label: 'Disabled', disabled: true },
+]
 const sizeOptions = [
   { label: 'Short', value: 'Short' },
   { label: 'Medium', value: 'Medium' },
@@ -36,6 +42,7 @@ const emojiOptions = [
 const styleOptions = [
   { label: 'Formal', value: 'Formal' },
   { label: 'Friendly', value: 'Friendly' },
+  { label: 'Brutal', value: 'Brutal' },
   { label: 'Persuasive', value: 'Persuasive' },
   { label: 'Expert', value: 'Expert' },
   { label: 'Joyful', value: 'Joyful' },
@@ -43,7 +50,7 @@ const styleOptions = [
   { label: 'Informative', value: 'Informative' },
   { label: 'Thoughtful', value: 'Thoughtful' },
   { label: 'Cautionary', value: 'Cautionary' },
-  { label: 'Grieved', value: 'Long' },
+  { label: 'Grieved', value: 'Grieved' },
   { label: 'Exciting', value: 'Exciting' },
   { label: 'Loving', value: 'Loving' },
   { label: 'Confident', value: 'Confident' },
@@ -95,12 +102,7 @@ export default function Write () {
             defaultValue={selectedLanguage}
             style={{ width: '100%' }}
             onChange={handleLanguageChange}
-            options={[
-              { value: 'english-us', label: 'English(U.S.)' },
-              { value: 'english-uk', label: 'English(U.K.)' },
-              { value: 'filipino', label: 'Filipino' },
-              { value: 'disabled', label: 'Disabled', disabled: true },
-            ]}
+            options={languageOptions}
           />
         </Space>
         <Space direction="vertical" className='mt-3 w-full'>            

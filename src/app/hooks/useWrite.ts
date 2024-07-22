@@ -1,6 +1,10 @@
 import { RadioChangeEvent } from "antd";
 import { useEffect, useState } from "react";
 import { WriteMessage } from "../interface/chat";
+import { funnyLoadingPhrases } from "../utils/constants";
+import { useNotification } from "../context/notificationContext";
+import { writeMessageService } from "../services/api/ai";
+import { useRouter } from "next/navigation";
 
 export function useWrite () {
   
@@ -10,6 +14,8 @@ export function useWrite () {
   const [selectedWritingStyle, setSelectedWritingStyle] = useState<string>('Friendly');
   const [selectedIfEmoji, setselectedIfEmoji] = useState<boolean>(true);
   const [value, setValue] = useState('');
+  const { openNotificationWithIcon } = useNotification();
+  const router = useRouter()
 
   useEffect(() => {
     console.log('selectedTextSize', selectedTextSize);
@@ -30,7 +36,7 @@ export function useWrite () {
   const handleIfEmojiChange = async (e: RadioChangeEvent) => {
     setselectedIfEmoji(e.target.value)
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const messageData:WriteMessage = {
       userMessage: value,
       language: selectedLanguage,
@@ -40,6 +46,32 @@ export function useWrite () {
       withEmoji: selectedIfEmoji
     }
     console.log('J',messageData)
+    const randomIndex = Math.floor(Math.random() * funnyLoadingPhrases.length);
+    const funnyPhrase = funnyLoadingPhrases[randomIndex];
+    openNotificationWithIcon('info', 'Info', funnyPhrase );
+    try {
+      const response:any = await writeMessageService(
+        selectedLanguage, 
+        selectedTextFormat, 
+        selectedTextSize, 
+        value, 
+        selectedIfEmoji, 
+        selectedWritingStyle
+      );
+      if ('error' in response) {
+        if (response.message == 'Unauthorized'){
+          openNotificationWithIcon('error', 'Error', 'You must be logged in to access this feature.' );
+          router.push('/signin');
+        }
+      } else {
+        console.log('jres',response)
+      }
+    } catch (err) {
+      console.log('jres',err)
+    } finally {
+      // setLoading(false);
+      // setUserInput("");
+    }
   }
   return {
     selectedLanguage,
