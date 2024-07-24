@@ -38,9 +38,13 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
   };
   const setUser = () => {
     const storageToken = localStorage.getItem("token")
+    const storageId = localStorage.getItem("id")
     if(storageToken && storageToken?.length > 0){
       setIsUserLoggedIn(true)
       setFirstName(localStorage.getItem("firstName") || "")
+      if(storageId && storageId?.length > 0){
+        setUserId(storageId)        
+      }
     }else{
       setIsUserLoggedIn(false)
     }
@@ -50,7 +54,9 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("email");
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
+    localStorage.removeItem("id");
     setUserId("")
+    router.push('/signin');
     openNotificationWithIcon('info', 'Info', 'You are now logged out. Have a great day!');
     setUser()
   }

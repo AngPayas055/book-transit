@@ -33,6 +33,7 @@ export function useSignin () {
         localStorage.setItem("email", userData.data.email);
         localStorage.setItem("firstName", userData.data.firstName);
         localStorage.setItem("lastName", userData.data.lastName);
+        localStorage.setItem("id", userData.data.id);
         setUserId(userData.data.id)
         openNotificationWithIcon('success', 'Success', "You've logged in, " + userData.data.firstName);
         router.push('/');
