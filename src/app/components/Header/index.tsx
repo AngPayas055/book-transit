@@ -14,7 +14,7 @@ export default function LayoutHeader() {
   const router = useRouter();
   const pathname = usePathname()
   const { Title } = Typography;
-  const { firstName, isUserLoggedIn, logout } = useHeader()
+  const { firstName, isUserLoggedIn, logout, userId, adminPage } = useHeader()
   const userContent = (
     <div>
       <Button onClick={logout} icon={<LogoutOutlined />}>Signout</Button>
@@ -52,7 +52,8 @@ export default function LayoutHeader() {
             style={{ flex: "auto", maxWidth: 2000, width: '100%' }}
           />
         }
-        <Space>          
+        <Space>   
+          {userId === '65bb4323095bd2f0160d6600' && <Button onClick={(e:any) => {adminPage()}}>admin</Button>}
           {!isUserLoggedIn && pathname !== "/signup" && <Button type="primary" onClick={(e: any) => router.push("/signup")}>Register</Button>}    
           {!isUserLoggedIn && pathname !== "/signin" && <Button type="primary" onClick={(e: any) => router.push("/signin")} ghost>Sign in</Button>}
           <Popover content={userContent} placement="bottomRight">

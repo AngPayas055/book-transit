@@ -1,5 +1,6 @@
 import { useState, useContext, createContext, ReactNode, useEffect } from "react";
 import { useNotification } from "../context/notificationContext";
+import { useRouter } from "next/navigation";
 
 interface HeaderContextProps {
   firstName: string;
@@ -7,7 +8,10 @@ interface HeaderContextProps {
   setUserFirstName: (name: string) => void;
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (bool: boolean) =>void;
-  logout: () => void
+  logout: () => void;
+  userId: string 
+  setUserId:(name: string) => void;
+  adminPage: () => void;
 }
 
 const HeaderContext = createContext<HeaderContextProps | undefined>(undefined);
@@ -22,7 +26,9 @@ export function useHeader() {
 
 export function HeaderProvider({ children }: { children: ReactNode }) {
   const [firstName, setFirstName] = useState<string>("");
-  const [isUserLoggedIn, setIsUserLoggedIn ] = useState<boolean>(false)
+  const [isUserLoggedIn, setIsUserLoggedIn ] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
+  const router = useRouter()
   useEffect(() => {
     setUser()
   },[] )
@@ -44,13 +50,27 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("email");
     localStorage.removeItem("firstName");
     localStorage.removeItem("lastName");
+    setUserId("")
     openNotificationWithIcon('info', 'Info', 'You are now logged out. Have a great day!');
     setUser()
   }
-
+  const adminPage = () => {
+    router.push('/admin');
+  }
   return (
-    <HeaderContext.Provider value={{ firstName, setFirstName, setUserFirstName, isUserLoggedIn, setIsUserLoggedIn, logout }}>
-      {children}
+    <HeaderContext.Provider value={{ 
+      firstName, 
+      setFirstName, 
+      setUserFirstName, 
+      isUserLoggedIn, 
+      setIsUserLoggedIn, 
+      logout,
+      userId, 
+      setUserId,
+      adminPage
+     }}
+      >
+        {children}
     </HeaderContext.Provider>
   );
 }

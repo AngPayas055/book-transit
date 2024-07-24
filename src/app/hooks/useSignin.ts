@@ -11,7 +11,7 @@ export function useSignin () {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { setUserFirstName, setIsUserLoggedIn } = useHeader();
+  const { setUserFirstName, setIsUserLoggedIn, userId, setUserId } = useHeader();
   const router = useRouter()
   
   const handleEmailInput = (e: any) => {
@@ -33,6 +33,7 @@ export function useSignin () {
         localStorage.setItem("email", userData.data.email);
         localStorage.setItem("firstName", userData.data.firstName);
         localStorage.setItem("lastName", userData.data.lastName);
+        setUserId(userData.data.id)
         openNotificationWithIcon('success', 'Success', "You've logged in, " + userData.data.firstName);
         router.push('/');
       } else {
