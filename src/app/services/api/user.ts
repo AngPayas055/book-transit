@@ -116,3 +116,22 @@ export const getPrompts = async () => {
     throw new Error("Unable to send reset link");
   }
 }
+export const deletePrompts = async (promptId:string) => {
+  try {
+    const options: AxiosRequestConfig = {
+      method: "DELETE",
+      headers: { 
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+       }
+    };
+    const resp = await axios(`${server}/users/messages/${promptId}`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
+}

@@ -1,7 +1,8 @@
 "use client"
-import { Button, Card } from "antd";
+import { Button, Card, Tooltip } from "antd";
 import { useEmail } from "../hooks/useEmail";
 import ReusableModal from "../components/reusable-components/modal";
+import { DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 
 export default function Emails () {
   const {
@@ -13,21 +14,39 @@ export default function Emails () {
     handleCopyGeneratedMessage,
     handleCopyRequestMessage,
     generatedMEssage,
-    value
+    value,
+    handleDeletePromptById
   } = useEmail()
 
   return(
     <div className="w-full max-w-[1200px] mx-auto p-3 flex flex-wrap gap-2 justify-evenly">
       {messages.map((message) => (
-        <Card onClick={(e) => {showModal(message.generatedMessage,message.userMessage)}} bordered={false} style={{ width: 280, height: 280}} key={message._id}>
-          <div className="border-b-2 border-Slate-400 pb-3 h-[32px] overflow-hidden text-base uppercase ">
-            <strong>{message.userMessage}</strong>
+        <div className="bg-white w-[300px] h-[300px] p-5 pt-3 rounded-xl shadow-lg" onClick={(e) => {showModal(message.generatedMessage,message.userMessage)}} key={message._id}>
+          <div className="relative flex justify-between w-full gap-2 mb-2 items-center">
+            <strong>-{message.textFormat}-</strong>
+            <div className="flex gap-2">
+              <Tooltip placement="bottom" title="Copy">
+                <Button type="primary" shape="circle" icon={<CopyOutlined />} 
+                  onClick={(e) => {e.stopPropagation(); handleCopyGeneratedMessage()}}
+                />
+              </Tooltip>
+              <Tooltip placement="bottom" title="Delete">
+                <Button danger type="primary" shape="circle" icon={<DeleteOutlined />} 
+                  onClick={(e) => {e.stopPropagation();handleDeletePromptById(message._id)}}
+                  />
+              </Tooltip>
             </div>
-          <p className="h-[150px] mb-4 overflow-ellipsis overflow-hidden ... mt-2">
-            <strong>Generated Message:</strong> <br /> <br /> {message.generatedMessage}
-          </p>
-          <p>{new Date(message.createdAt).toLocaleString()}</p>
-        </Card>
+          </div>
+          <div className=" ">
+            <div className="border-b-2 border-Slate-400 w-full h-[32px] pb-3  truncate ...">
+              <strong className="overflow-hidden text-base uppercase">{message.userMessage}</strong>
+            </div>            
+            <p className="h-[150px] mb-4 mt-2 overflow-hidden">
+              <strong>Generated Message:</strong> <br /> <br /> {message.generatedMessage}
+            </p>
+            <p>{new Date(message.createdAt).toLocaleString()}</p>
+          </div>
+        </div>
       ))}  
       <ReusableModal
         isOpen={isModalOpen}
