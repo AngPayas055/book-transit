@@ -22,8 +22,8 @@ const items = [
   }
 ]
 const options = [
-  { label: 'Email', value: 'Email' },
-  { label: 'Message', value: 'Message' }
+  { label: 'Email📧', value: 'Email' },
+  { label: 'Message📝', value: 'Message' }
 ];
 const languageOptions = [
   { value: 'english-us', label: 'English(U.S.)' },
@@ -32,30 +32,30 @@ const languageOptions = [
   { value: 'disabled', label: 'Disabled', disabled: true },
 ]
 const sizeOptions = [
-  { label: 'Short', value: 'Short' },
-  { label: 'Medium', value: 'Medium' },
-  { label: 'Long', value: 'Long' }
+  { label: '☝️ Short', value: 'Short' },
+  { label: '✌️ Medium', value: 'Medium' },
+  { label: '👌 Long', value: 'Long' }
 ];
 const emojiOptions = [
-  { label: 'With emoji', value: true },
+  { label: '😊 With emoji', value: true },
   { label: 'No emoji', value: false }
 ];
 const styleOptions = [
-  { label: 'Formal', value: 'Formal' },
-  { label: 'Friendly', value: 'Friendly' },
-  { label: 'Brutal', value: 'Brutal' },
-  { label: 'Persuasive', value: 'Persuasive' },
-  { label: 'Expert', value: 'Expert' },
-  { label: 'Joyful', value: 'Joyful' },
-  { label: 'Inspirational', value: 'Inspirational' },
-  { label: 'Informative', value: 'Informative' },
-  { label: 'Thoughtful', value: 'Thoughtful' },
-  { label: 'Cautionary', value: 'Cautionary' },
-  { label: 'Grieved', value: 'Grieved' },
-  { label: 'Exciting', value: 'Exciting' },
-  { label: 'Loving', value: 'Loving' },
-  { label: 'Confident', value: 'Confident' },
-  { label: 'Surprised', value: 'Surprised' }
+  { label: '🧐 Formal', value: 'Formal' },
+  { label: '🤗 Friendly', value: 'Friendly' },
+  { label: '😈 Brutal', value: 'Brutal' },
+  { label: '😏 Persuasive', value: 'Persuasive' },
+  { label: '🤓 Expert', value: 'Expert' },
+  { label: '🥳 Joyful', value: 'Joyful' },
+  { label: '🤩 Inspirational', value: 'Inspirational' },
+  { label: '💭 Informative', value: 'Informative' },
+  { label: '🥰 Thoughtful', value: 'Thoughtful' },
+  { label: '⚠️ Cautionary', value: 'Cautionary' },
+  { label: '😞 Grieved', value: 'Grieved' },
+  { label: '🙌 Exciting', value: 'Exciting' },
+  { label: '😍 Loving', value: 'Loving' },
+  { label: '😎 Confident', value: 'Confident' },
+  { label: '🤯 Surprised', value: 'Surprised' }
 ];
 export default function Write () {
   const {

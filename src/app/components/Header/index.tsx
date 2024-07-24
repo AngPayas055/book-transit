@@ -26,11 +26,11 @@ export default function LayoutHeader() {
       icon: <FormOutlined />, 
       label: (<Link href="/write"><span className="text-white">Write</span></Link>),
     },
-    { 
-      key: 'create-message', 
-      icon: <SnippetsOutlined />, 
-      label: (<Link href="/create-message">Create Message</Link>),
-    },
+    // { 
+    //   key: 'create-message', 
+    //   icon: <SnippetsOutlined />, 
+    //   label: (<Link href="/create-message">Create Message</Link>),
+    // },
     { 
       key: 'emails', 
       icon: <MailOutlined />, 
@@ -53,7 +53,7 @@ export default function LayoutHeader() {
           />
         }
         <Space>   
-          {userId === '65bb4323095bd2f0160d6600' && <Button onClick={(e:any) => {adminPage()}}>admin</Button>}
+          {/* {userId === '65bb4323095bd2f0160d6600' && <Button onClick={(e:any) => {adminPage()}}>Admin</Button>} */}
           {!isUserLoggedIn && pathname !== "/signup" && <Button type="primary" onClick={(e: any) => router.push("/signup")}>Register</Button>}    
           {!isUserLoggedIn && pathname !== "/signin" && <Button type="primary" onClick={(e: any) => router.push("/signin")} ghost>Sign in</Button>}
           <Popover content={userContent} placement="bottomRight">

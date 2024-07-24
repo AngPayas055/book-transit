@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 export function useWrite () {
   
   const [selectedLanguage, setSelectedLanguage] = useState<string>('english-uk');
-  const [selectedTextFormat, setSelectedTextFormat] = useState<string>('Message');
-  const [selectedTextSize, setSelectedTextSize] = useState<string>('Short');
+  const [selectedTextFormat, setSelectedTextFormat] = useState<string>('Email');
+  const [selectedTextSize, setSelectedTextSize] = useState<string>('Medium');
   const [selectedWritingStyle, setSelectedWritingStyle] = useState<string>('Friendly');
   const [selectedIfEmoji, setselectedIfEmoji] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
