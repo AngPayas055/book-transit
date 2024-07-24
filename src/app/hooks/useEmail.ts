@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getPrompts, deletePrompts } from "../services/api/user"
 import { generatedMessage } from "../interface/user";
 import { useNotification } from "../context/notificationContext";
+import { useRouter } from "next/navigation";
 
 export function useEmail () {
   const [messages, setMessages] = useState<generatedMessage[]>([]);
@@ -9,6 +10,7 @@ export function useEmail () {
   const [generatedMEssage, setGeneratedMEssage] = useState<string>('');
   const [value, setValue] = useState('');
   const { openNotificationWithIcon } = useNotification();
+  const router = useRouter()
   
   useEffect(() => {
     getEmailsMessages()
@@ -58,6 +60,9 @@ export function useEmail () {
       openNotificationWithIcon('error', 'Error', 'Failed to delete prompt');
     }
   };
+  const redirectToWrite = () => {
+    router.push('/write');
+  }
   return {
     getEmailsMessages,
     messages,
@@ -69,6 +74,7 @@ export function useEmail () {
     handleCopyRequestMessage,
     generatedMEssage,
     value,
-    handleDeletePromptById
+    handleDeletePromptById,
+    redirectToWrite
   }
 }

@@ -1,5 +1,5 @@
 "use client"
-import { Button, Card, Tooltip } from "antd";
+import { Button, Card, Popconfirm, Tooltip } from "antd";
 import { useEmail } from "../hooks/useEmail";
 import ReusableModal from "../components/reusable-components/modal";
 import { DeleteOutlined, CopyOutlined } from '@ant-design/icons';
@@ -15,11 +15,17 @@ export default function Emails () {
     handleCopyRequestMessage,
     generatedMEssage,
     value,
-    handleDeletePromptById
+    handleDeletePromptById,
+    redirectToWrite
   } = useEmail()
 
   return(
     <div className="w-full max-w-[1200px] mx-auto p-3 flex flex-wrap gap-2 justify-evenly">
+      {messages.length === 0 && 
+        <div><strong className="me-3">No emails available yet. </strong>
+          <Button onClick={(e) => {redirectToWrite()}} type="primary">Create one now</Button>
+        </div>
+      }
       {messages.map((message) => (
         <div className="bg-white w-[300px] h-[300px] p-5 pt-3 rounded-xl shadow-lg" onClick={(e) => {showModal(message.generatedMessage,message.userMessage)}} key={message._id}>
           <div className="relative flex justify-between w-full gap-2 mb-2 items-center">
@@ -30,11 +36,19 @@ export default function Emails () {
                   onClick={(e) => {e.stopPropagation(); handleCopyGeneratedMessage()}}
                 />
               </Tooltip>
+              <Popconfirm
+                title={`Delete ${message.textFormat}` }
+                description="Confirm delete: Are you sure you want to proceed?"
+                onConfirm={(e:any) => {e.stopPropagation();handleDeletePromptById(message._id)}}
+                onOpenChange={() => console.log('open change')}
+                onCancel={(e:any) => {e.stopPropagation();}}
+              >
               <Tooltip placement="bottom" title="Delete">
                 <Button danger type="primary" shape="circle" icon={<DeleteOutlined />} 
-                  onClick={(e) => {e.stopPropagation();handleDeletePromptById(message._id)}}
+                  onClick={(e) => {e.stopPropagation();}}
                   />
               </Tooltip>
+              </Popconfirm>
             </div>
           </div>
           <div className=" ">
