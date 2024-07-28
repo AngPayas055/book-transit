@@ -40,7 +40,10 @@ export function useSignup () {
       }
       const userData = await userSignUp(userObj)
       if(userData.data){
-        openNotificationWithIcon('success', 'Success', "Signup successful! Welcome aboard, " + firstName);
+        openNotificationWithIcon(
+          'success', 
+          'Success', 
+          "Verification email sent! Please check your inbox and confirm your account to start using our services. " + firstName);
         router.push('/signin');
       }else{        
         console.log(userData.message)
