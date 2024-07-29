@@ -154,3 +154,23 @@ export const getUsers = async () => {
     throw new Error("Unable to send reset link");
   }
 }
+
+
+export const verifyEMail = async (token: string) => {
+  try {
+    const data = { token: token };
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data,
+    };
+    const resp = await axios(`${server}/users/verifyEmail`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
+}

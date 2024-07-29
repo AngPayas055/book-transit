@@ -2,11 +2,10 @@
 import { useVerifyEmail } from "../hooks/useVerifyEmail"
 
 export default function VerifyEmail() {
-  const { token } = useVerifyEmail()
+  const { } = useVerifyEmail()
 
   return (
     <div>
-      {token}
     </div>
   )
 }
