@@ -2,7 +2,7 @@
 import { Button, Layout, Menu, Popover, Space, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { usePathname } from 'next/navigation'
-import { UserSwitchOutlined, LogoutOutlined, MailOutlined, SnippetsOutlined, FormOutlined  } from '@ant-design/icons';
+import { UserSwitchOutlined, LogoutOutlined, MailOutlined, DeliveredProcedureOutlined, FormOutlined  } from '@ant-design/icons';
 import { useHeader } from "@/app/hooks/useHeader";
 import type { MenuProps } from 'antd';
 import Link from 'next/link';
@@ -40,8 +40,11 @@ export default function LayoutHeader() {
 
   return (
     <Header style={{ display: 'flex', alignItems: 'center', padding: '0'}}>
-      <span className="w-full max-w-[1440px] flex justify-between mx-auto items-center p-3">    
-        <a /*onClick={(e: any) => router.push("/write")} */className="text-3xl font-bold text-sky-400">SmartCompose</a>
+      <span className="w-full max-w-6xl flex justify-between mx-auto items-center p-3">    
+        <a onClick={(e: any) => router.push("/")} className="text-3xl font-bold text-sky-400">
+          <span className="hidden sm:block">SmartCompose</span>
+          <span className="sm:hidden">SC</span>
+        </a>
         {isUserLoggedIn &&        
           <Menu 
             theme="dark"
@@ -54,8 +57,16 @@ export default function LayoutHeader() {
         }
         <Space>   
           {/* {userId === '65bb4323095bd2f0160d6600' && <Button onClick={(e:any) => {adminPage()}}>Admin</Button>} */}
-          {!isUserLoggedIn && pathname !== "/signup" && <Button type="primary" onClick={(e: any) => router.push("/signup")}>Register</Button>}    
-          {!isUserLoggedIn && pathname !== "/signin" && <Button type="primary" onClick={(e: any) => router.push("/signin")} ghost>Sign in</Button>}
+          {!isUserLoggedIn && pathname !== "/signup" && 
+            <Button type="primary" onClick={(e: any) => router.push("/signup")} ghost>
+              Register
+            </Button>
+          }    
+          {!isUserLoggedIn && pathname !== "/signin" && 
+            <Button type="primary" onClick={(e: any) => router.push("/signin")}  icon={<DeliveredProcedureOutlined />} >
+              Get Started
+            </Button>
+          }
           <Popover content={userContent} placement="bottomRight">
             {isUserLoggedIn && <Button type="primary" icon={<UserSwitchOutlined />}>Hi, {firstName}</Button>}
           </Popover>
