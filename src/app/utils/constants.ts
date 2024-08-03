@@ -1,4 +1,5 @@
-export const server = process.env.NEXT_PUBLIC_API_URL;
+// export const server = process.env.NEXT_PUBLIC_API_URL;
+export const server = "https://jac-booking-api.onrender.com";
 export const funnyLoadingPhrases = [
   'Fetching unicorns... Please wait.',
   'Summoning the AI wizards...',
