@@ -2,10 +2,15 @@
 import { TableProps, Table } from "antd";
 import { useAdmin } from "../hooks/useAdmin"
 import { IUser } from "../interface/user";
+interface ColumnType {
+  title: string;
+  dataIndex: keyof IUser;
+  key: string;
+}
 export default function Admin () {
   const {users} = useAdmin()
   const usersWithKeys = users.map(user => ({ ...user, key: user._id }));
-  const columns: TableProps<IUser>['columns'] = [
+  const columns: ColumnType[] = [
     {
       title: 'First Name',
       dataIndex: 'firstName',
