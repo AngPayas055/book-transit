@@ -8,7 +8,8 @@ export default function Admin () {
   const { users } = useAdmin();
   const usersWithKeys = users.map(user => ({ ...user, key: user._id }));
 
-  const columns: ColumnsType<IUser> = [
+  const columns: any = [
+    // @ts-ignore
     {
       title: 'First Name',
       dataIndex: 'firstName',
