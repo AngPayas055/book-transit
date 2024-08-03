@@ -1,16 +1,14 @@
 "use client"
-import { TableProps, Table } from "antd";
-import { useAdmin } from "../hooks/useAdmin"
+import { Table } from "antd";
+import { useAdmin } from "../hooks/useAdmin";
 import { IUser } from "../interface/user";
-interface ColumnType {
-  title: string;
-  dataIndex: keyof IUser;
-  key: string;
-}
+import type { ColumnsType } from 'antd/es/table';
+
 export default function Admin () {
-  const {users} = useAdmin()
+  const { users } = useAdmin();
   const usersWithKeys = users.map(user => ({ ...user, key: user._id }));
-  const columns: ColumnType[] = [
+
+  const columns: ColumnsType<IUser> = [
     {
       title: 'First Name',
       dataIndex: 'firstName',
@@ -27,9 +25,10 @@ export default function Admin () {
       key: 'email',
     },
   ];
+
   return (
     <div className="max-w-[1200px] mx-auto my-3">
-      <Table columns={columns} dataSource={usersWithKeys} />;
+      <Table columns={columns} dataSource={usersWithKeys} />
     </div>
-  )
+  );
 }
