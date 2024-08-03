@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from './signin.module.css'
 import { useSignin } from '../hooks/useSignin'
 
-export default function signin() {
+export default function Signin() {
 
   const {
     handleEmailInput,
