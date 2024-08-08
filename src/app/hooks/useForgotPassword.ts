@@ -9,6 +9,7 @@ export function useForgotPassword () {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [resetToken, setResetToken] = useState<string>("");
   const { openNotificationWithIcon } = useNotification();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
 
   const handlePasswordInput = (e: any) => {
@@ -21,6 +22,7 @@ export function useForgotPassword () {
     setEmail(e);
   };
   const handleSendResetLink = async (e: any) => {
+    setIsLoading(true)
     try{
       const resetPassword = await getResetLink(email)
       if(resetPassword.message){
@@ -29,8 +31,10 @@ export function useForgotPassword () {
       }else if(resetPassword.data.error) {
         openNotificationWithIcon('error', 'Error', resetPassword.data.message);  
       }
+      setIsLoading(false)
     } catch (error){
       console.log('errssd',error)
+      setIsLoading(false)
     }
   }
   const handleResetPassword = async (e: any) => {
@@ -58,6 +62,7 @@ export function useForgotPassword () {
     handleConfirmPasswordInput,
     handlePasswordInput,
     handleResetPassword,
-    setResetToken
+    setResetToken,
+    isLoading
   }
 }

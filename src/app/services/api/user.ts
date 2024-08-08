@@ -7,6 +7,25 @@ const getToken = () => {
   return localStorage.getItem("token") || ''
 }
 
+export const checkApiHealth = async () => {
+  try {
+    const options: AxiosRequestConfig = {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+       }
+    };
+    const resp = await axios(`${server}/customers`, options);
+    return resp.data
+  } catch (error:any) {
+    if(error.response){
+      return error.response
+    }
+    captureException(error);
+    throw new Error("Unable to send reset link");
+  }
+}
+
 export const userSignIn = async (email: string, password: string) => {
   try {
     const data: UserData = { email, password };

@@ -9,6 +9,7 @@ export function useSignup () {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setlastName] = useState<string>("");
   const [phone, setphone] = useState<string>("");
+  const [isSignupLoading, setIsSignupLoading] = useState(false);
 
   const { openNotificationWithIcon } = useNotification();
   const router = useRouter()
@@ -30,6 +31,7 @@ export function useSignup () {
   const handleSignUp = async (e: any) => {
     e.preventDefault();
     console.log(email,password,phone,firstName,lastName)
+    setIsSignupLoading(true)
     try{
       const userObj = {
         email: email,
@@ -49,9 +51,11 @@ export function useSignup () {
         console.log(userData.message)
         openNotificationWithIcon('error', 'Error', userData.message || 'Invalid username/password');
       }
+      setIsSignupLoading(false)
 
     }catch (error) {
       console.error("error", error);
+      setIsSignupLoading(false)
     }
   }
   return {
@@ -60,6 +64,7 @@ export function useSignup () {
     handleFirstNameInput,
     handleLastNameInput,
     handlePhoneInput,
-    handleSignUp
+    handleSignUp,
+    isSignupLoading
   }
 }

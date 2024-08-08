@@ -3,6 +3,7 @@ import { Button, Input, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useSignup } from "../hooks/useSignup";
 import styles from './signup.module.css'
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function Signup () {
   const { Title } = Typography;
@@ -13,7 +14,8 @@ export default function Signup () {
     handleFirstNameInput,
     handleLastNameInput,
     handlePhoneInput,
-    handleSignUp
+    handleSignUp,
+    isSignupLoading
   } = useSignup()
   return(
     <div className={styles.signupCont}>
@@ -40,7 +42,9 @@ export default function Signup () {
             <label>Last Name</label>
             <Input onChange={(e) => handleLastNameInput(e.target.value)} className="mt-1" size="large" placeholder="Enter last name"/>
           </div>
-          <Button onClick={(e) => handleSignUp(e)} type="primary" block>Register</Button>
+          <Button onClick={(e) => handleSignUp(e)} type="primary" block disabled={isSignupLoading}>            
+            {isSignupLoading ?<span><LoadingOutlined/></span> : 'Register'}
+          </Button>
           <Button onClick={(e: any) => router.push("/signin")} className="mt-3" block>
             Already registered? <span className="text-red-500">Login</span>
           </Button>
@@ -48,11 +52,11 @@ export default function Signup () {
       </div>
       <div className={styles.signupRight}>
         <div className="text-center max-w-[350px]">          
-          <Title level={3} type="secondary">Simplified Booking Process</Title>
           <Title level={4} type="secondary">
-            With our user-friendly interface and secure payment options, booking has never been easier.
-            Streamline your travel experience, save time, and eliminate stress as you prepare for your 
-            upcoming adventures
+            SmartCompose is a full-stack web application built with Next.js, 
+            Express.js, and MongoDB. It leverages the OpenAI API to generate customized messages based on user-selected settings. 
+            Key features include user registration, login, password recovery, and account verification. 
+            Email functionalities are managed using Amazon SES, facilitating secure password recovery and user verification processes. 
           </Title>
         </div>
       </div>

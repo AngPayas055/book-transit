@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { SnippetsOutlined, FormOutlined } from '@ant-design/icons';
+import { SnippetsOutlined, FormOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Layout, Radio, Select, Space, Typography } from 'antd';
 import { useWrite } from '../hooks/useWrite';
 import ReusableModal from '../components/reusable-components/modal';
@@ -77,7 +77,8 @@ export default function Write () {
     handleOk,
     generatedMEssage,
     handleCopyGeneratedMessage,
-    handleRequestMessage
+    handleRequestMessage,
+    isLoading
   } = useWrite()
 
   return (
@@ -91,8 +92,8 @@ export default function Write () {
           maxLength={3000}
           onChange={(e) => setValue(e.target.value)}
           />  
-        <Button onClick={handleSubmit} type="primary" block className='mt-7'>
-          Submit
+        <Button onClick={handleSubmit} type="primary" block className='mt-7' disabled={isLoading}>          
+          {isLoading ?<span>Generating...<LoadingOutlined/></span> : 'Submit'}
         </Button>
       </div>
       <div className='p-2 w-full lg:max-w-80 border'>          

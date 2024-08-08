@@ -10,6 +10,7 @@ import { useNotification } from "../context/notificationContext";
 export function useSignin () {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isSigninLoading, setIsSigninLoading] = useState(false);
 
   const { setUserFirstName, setIsUserLoggedIn, userId, setUserId } = useHeader();
   const router = useRouter()
@@ -24,6 +25,7 @@ export function useSignin () {
   
   const handleSignIn = async (e: any) => {
     e.preventDefault();
+    setIsSigninLoading(true)
     try {
       const userData = await userSignIn(email, password);
       if (userData.data && userData.data.token) {
@@ -37,11 +39,14 @@ export function useSignin () {
         setUserId(userData.data.id)
         openNotificationWithIcon('success', 'Success', "You've logged in, " + userData.data.firstName);
         router.push('/');
+        setIsSigninLoading(false)
       } else {
         openNotificationWithIcon('error', 'Error', userData.message || 'Invalid username/password');
+        setIsSigninLoading(false)
       }
     } catch (error: any) {
       openNotificationWithIcon('error', 'Error', error.message || 'An error occurred during sign in');
+      setIsSigninLoading(false)
     }
   };
 
@@ -49,5 +54,6 @@ export function useSignin () {
     handleEmailInput,
     handlePasswordInput,
     handleSignIn,
+    isSigninLoading
   }
 }

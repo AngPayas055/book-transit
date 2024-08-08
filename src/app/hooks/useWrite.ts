@@ -16,6 +16,7 @@ export function useWrite () {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [value, setValue] = useState('');
   const [generatedMEssage, setGeneratedMEssage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
   const { openNotificationWithIcon } = useNotification();
   const router = useRouter()
 
@@ -48,6 +49,7 @@ export function useWrite () {
     setselectedIfEmoji(e.target.value)
   };
   const handleSubmit = async () => {
+    setIsLoading(true)
     const messageData:WriteMessage = {
       userMessage: value,
       language: selectedLanguage,
@@ -79,11 +81,14 @@ export function useWrite () {
         setGeneratedMEssage(response.data)
         showModal()
       }
+      setIsLoading(false)      
     } catch (err) {
       console.log('jres',err)
+      setIsLoading(false)
     } finally {
       // setLoading(false);
       // setUserInput("");
+      setIsLoading(false)
     }
   }  
   const handleCopyGeneratedMessage = async () => {
@@ -123,6 +128,7 @@ export function useWrite () {
     handleOk,
     generatedMEssage,
     handleCopyGeneratedMessage,
-    handleRequestMessage
+    handleRequestMessage,
+    isLoading
   }
 }
