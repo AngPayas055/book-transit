@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    checkApiHealth()
+    // checkApiHealth()
     if (isUserLoggedIn) {
       router.push('/write');
     } else {

@@ -1,6 +1,7 @@
 import { useState, useContext, createContext, ReactNode, useEffect } from "react";
 import { useNotification } from "../context/notificationContext";
 import { useRouter } from "next/navigation";
+import { checkApiHealth } from "../services/api/user";
 
 interface HeaderContextProps {
   firstName: string;
@@ -29,7 +30,8 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
   const [isUserLoggedIn, setIsUserLoggedIn ] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
   const router = useRouter()
-  useEffect(() => {
+  useEffect(() => {    
+    checkApiHealth()
     setUser()
   },[] )
   const { openNotificationWithIcon } = useNotification();
